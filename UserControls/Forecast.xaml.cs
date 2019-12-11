@@ -30,49 +30,56 @@ namespace WeatherWiki.UserControls
                 {
                     Day = "Wed 28",
                     ImagePath = "/Images/WeatherState/a01d.png",
-                    Temperature = "1˚, -5˚",
+                    HighTemperature = 1.2,
+                    LowTemperature = -5,
                     Condition = "Windy"
                 },
                 new ForecastDay()
                 {
                     Day = "Tue 12",
                     ImagePath = "/Images/WeatherState/c04d.png",
-                    Temperature = "1˚, -5˚",
+                    HighTemperature = 1.2,
+                    LowTemperature = -5,
                     Condition = "Rain"
                 },
                 new ForecastDay()
                 {
                     Day = "Sun 3",
                     ImagePath = "/Images/WeatherState/d01d.png",
-                    Temperature = "1˚, -5˚",
+                    HighTemperature = 1.2,
+                    LowTemperature = -5,
                     Condition = "Clear"
                 },
                 new ForecastDay()
                 {
                     Day = "Fri 22",
                     ImagePath = "/Images/WeatherState/f01d.png",
-                    Temperature = "1˚, -5˚",
+                    HighTemperature = 1.2,
+                    LowTemperature = -5,
                     Condition = "Windy"
                 },
                 new ForecastDay()
                 {
                     Day = "Thu 4",
                     ImagePath = "/Images/WeatherState/s03d.png",
-                    Temperature = "1˚, -5˚",
+                    HighTemperature = 1.2,
+                    LowTemperature = -5,
                     Condition = "Rain"
                 },
-                                new ForecastDay()
+                new ForecastDay()
                 {
                     Day = "Wed 7",
                     ImagePath = "/Images/WeatherState/s01d.png",
-                    Temperature = "1˚, -5˚",
+                    HighTemperature = 1.2,
+                    LowTemperature = -5,
                     Condition = "Rain"
                 },
-                                                new ForecastDay()
+                new ForecastDay()
                 {
                     Day = "Sat 29",
                     ImagePath = "/Images/WeatherState/t02n.png",
-                    Temperature = "1˚, -5˚",
+                    HighTemperature = 1.2,
+                    LowTemperature = -5,
                     Condition = "Rain"
                 }
             };
@@ -85,7 +92,8 @@ namespace WeatherWiki.UserControls
     {
         public string Day { get; set; }
         public string ImagePath { get; set; }
-        public string Temperature { get; set; }
+        public double HighTemperature { get; set; }
+        public double LowTemperature { get; set; }
         public string Condition { get; set; }
     }
 }

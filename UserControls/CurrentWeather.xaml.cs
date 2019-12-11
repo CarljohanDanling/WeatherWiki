@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,6 +23,29 @@ namespace WeatherWiki.UserControls
         public CurrentWeather()
         {
             this.InitializeComponent();
+
+            ObservableCollection<CurrentWeatherData> currentWeather = new ObservableCollection<CurrentWeatherData>
+            {
+                new CurrentWeatherData()
+                {
+                    City = "Skövde",
+                    ImagePath = "/Images/WeatherState/a01d.png",
+                    Temperature = 3.6,
+                    Condition = "Cloudy",
+                    Updated = DateTime.Now.ToString("HH:mm:ss tt")
+                }
+            };
+
+            observableColletionCurrentWeather.ItemsSource = currentWeather;
+        }
+
+        public class CurrentWeatherData
+        {
+            public string City { get; set; }
+            public string ImagePath { get; set; }
+            public double Temperature { get; set; }
+            public string Condition { get; set; }
+            public string Updated { get; set; }
         }
     }
 }

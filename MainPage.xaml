@@ -12,8 +12,8 @@
     <!--MASTER-->
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="170"/>
-            <RowDefinition/>
+            <RowDefinition Height="17*"/>
+            <RowDefinition Height="55*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -37,7 +37,7 @@
 
             <StackPanel VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal"
-                            Margin="40, 0, 0, 0">
+                            HorizontalAlignment="Right">
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE71E;"
                               Margin="0, 0, 10, 0"/>
 
@@ -69,64 +69,19 @@
         <!--MAIN-->
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <!--CURRENT WEATHER-->
-            <Grid Grid.Row="0" HorizontalAlignment="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-
-                <!--CITY NAME-->
-                <TextBlock FontSize="35"
-                           Foreground="white"
-                           HorizontalAlignment="Center">Skövde</TextBlock>
-
-                <!--CONDITION, TEMPERATUR & METRIC-->
-                <StackPanel Grid.Row="1" Orientation="Horizontal">
-
-                    <Image Grid.Column="0" 
-                           Source="/Images/WeatherState/a03d.png" 
-                           Height="70"/>
-
-                    <TextBlock Grid.Column="1"
-                               FontSize="70"
-                               Foreground="white">    
-                        -2˚
-                    </TextBlock>
-
-                    <TextBlock Grid.Column="2"
-                               FontSize="25"
-                               Foreground="white"
-                               Margin="12">
-                        C
-                    </TextBlock>
-                </StackPanel>
-
-                <StackPanel Grid.Row="3">
-                    <TextBlock Foreground="White"
-                               FontSize="20"
-                               HorizontalAlignment="Center">
-                        Light snow
-                    </TextBlock>
-
-                    <TextBlock Foreground="White"
-                               HorizontalAlignment="Center"
-                               Padding="0, 5, 0 ,0">
-                        Updated on
-                    </TextBlock>
-                </StackPanel>
-                
+            <Grid Grid.Row="0">
+                <uc:CurrentWeather HorizontalAlignment="Center"/>
             </Grid>
 
             <!--FORECAST-->
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="2">
                 <uc:Forecast HorizontalAlignment="Center"/>
-                
             </Grid>
         </Grid>
     </Grid>
