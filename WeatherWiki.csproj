@@ -119,7 +119,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forecast.xaml.cs">
+    <Compile Include="UserControls\CurrentWeather.xaml.cs">
+      <DependentUpon>CurrentWeather.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Forecast.xaml.cs">
       <DependentUpon>Forecast.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
@@ -212,7 +215,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Forecast.xaml">
+    <Page Include="UserControls\CurrentWeather.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Forecast.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
