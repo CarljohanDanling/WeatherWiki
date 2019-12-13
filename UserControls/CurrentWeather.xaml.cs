@@ -33,7 +33,7 @@ namespace WeatherWiki.UserControls
         public CurrentWeather()
         {
             this.InitializeComponent();
-        }
+        }   
 
         public void AddCurrentWeatherDataToUI(WeatherRoot weather)
         {
@@ -57,6 +57,5 @@ namespace WeatherWiki.UserControls
 
             observableColletionCurrentWeather.ItemsSource = currentWeather;
         }
-
     }
 }

@@ -13,7 +13,7 @@ namespace WeatherWiki.DataProvider
     {
         public async Task<WeatherRoot> GetWeather(string cityName)
         {
-            string URL = $"https://api.weatherbit.io/v2.0/forecast/daily?city={cityName}&days=5&key=b11292cc43f94dbcb931a25da7d56660";
+            string URL = $"https://api.weatherbit.io/v2.0/forecast/daily?city={cityName}&days=7&key=b11292cc43f94dbcb931a25da7d56660";
             WeatherRoot weatherData = new WeatherRoot();
 
             using (HttpResponseMessage response = await APIHelper.ApiClient.GetAsync(URL))

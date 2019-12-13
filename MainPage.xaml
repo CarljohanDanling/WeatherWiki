@@ -12,8 +12,9 @@
     <!--MASTER-->
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="17*"/>
-            <RowDefinition Height="55*"/>
+            <RowDefinition Height="43*"/>
+            <RowDefinition Height="42*"/>
+            <RowDefinition Height="275*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -28,23 +29,35 @@
         </Grid.Background>
 
         <!--HEADER-->
-        <Grid Grid.ColumnSpan="2">
+        <Grid Margin="0,0,0,550" Grid.RowSpan="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel VerticalAlignment="Center">
+            <StackPanel VerticalAlignment="Center"
+                        Margin="0, 20, 0, 0">
+
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Right">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE71E;"
+                    <FontIcon FontFamily="Segoe MDL2 Assets" 
+                              Glyph="&#xE71E;"
                               Margin="0, 0, 10, 0"/>
 
-                    <TextBox FontSize="20" 
+                    <TextBox FontSize="20"
+                             x:Name="user_input"
                              Background="white"
                              PlaceholderText="Enter city"
+                             KeyDown="Search_City"
                              Width="280"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock x:Name="error_message" 
+                               HorizontalAlignment="Right"
+                               Foreground="White"
+                               Text=" "/>
                 </StackPanel>
             </StackPanel>
 
@@ -67,7 +80,7 @@
         </Grid>
 
         <!--MAIN-->
-        <Grid Grid.Column="1" Grid.Row="1">
+        <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="50"/>

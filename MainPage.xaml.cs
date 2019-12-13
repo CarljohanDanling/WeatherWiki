@@ -1,21 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using WeatherWiki.DataProvider;
-using WeatherWiki.Models;
-using WeatherWiki.UserControls;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using WeatherWiki.DataProvider;
+using Windows.System;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -30,22 +16,34 @@ namespace WeatherWiki
         {
             this.InitializeComponent();
             APIHelper.InitializeClient();
-
-            getWeather();
         }
 
-        private async void getWeather()
+        private async void getWeather(string userInput)
         {
             var wdp = new WeatherDataProvider();
-            var weather = await wdp.GetWeather("skövde");
+            var weather = await wdp.GetWeather(userInput);
+
+            if (weather == null)
+            {
+                error_message.Text = "Invalid city name";
+                return;
+            }
+
+            else
+            {
+                error_message.Text = " ";
+            }
 
             CurrentWeatherComponent.AddCurrentWeatherDataToUI(weather);
+            ForecastWeatherComponent.AddForecastWeatherDataToUI(weather);
         }
 
-        private void Search_City(object sender, RoutedEventArgs e)
+        private void Search_City(object sender, KeyRoutedEventArgs e)
         {
-
-
+            if (e.Key == VirtualKey.Enter)
+            {
+                getWeather(user_input.Text);
+            }
         }
     }
 }

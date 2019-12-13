@@ -19,21 +19,6 @@ using Windows.UI.Xaml.Navigation;
 
 namespace WeatherWiki.UserControls
 {
-    public sealed partial class Forecast : UserControl
-    {
-        public Forecast()
-        {
-            this.InitializeComponent();
-
-            ObservableCollection<ForecastDay> forecastDays = new ObservableCollection<ForecastDay>
-            {
-
-            };
-
-            observableColletionForecast.ItemsSource = forecastDays;
-        }
-    }
-
     public class ForecastDay
     {
         public string Day { get; set; }
@@ -41,5 +26,52 @@ namespace WeatherWiki.UserControls
         public double HighTemperature { get; set; }
         public double LowTemperature { get; set; }
         public string Condition { get; set; }
+    }
+    public sealed partial class Forecast : UserControl
+    {
+        public Forecast()
+        {
+            this.InitializeComponent();
+        }
+
+        public void AddForecastWeatherDataToUI(WeatherRoot weather)
+        {
+            var processedObject = ProcessObject(weather);
+
+            ObservableCollection<ForecastDay> forecastDays = new ObservableCollection<ForecastDay>();
+
+            foreach (var item in processedObject.WeatherData)
+            {
+                var forecastDay = new ForecastDay
+                {
+                    Day = item.Date,
+                    ImagePath = $"/Images/WeatherState/{item.Weather.WeatherIcon}.png",
+                    HighTemperature = item.HighTemperature,
+                    LowTemperature = item.LowTemperature,
+                    Condition = item.Weather.ConditionDescription
+                };
+
+                forecastDays.Add(forecastDay);
+            }
+
+            observableColletionForecast.ItemsSource = forecastDays;
+        }
+
+        public WeatherRoot ProcessObject(WeatherRoot weather)
+        {
+            weather.WeatherData.RemoveAt(0);
+
+            foreach (var item in weather.WeatherData)
+            {
+                DateTime dateTime = DateTime.Parse(item.Date);
+                item.Date = dateTime.ToString("ddd") + " " + dateTime.Day.ToString();
+                string weatherIcon = item.Weather.WeatherIcon;
+                double highTemp = item.HighTemperature;
+                double lowTemp = item.LowTemperature;
+                string condition = item.Weather.ConditionDescription;
+            }
+
+            return weather;
+        }
     }
 }
