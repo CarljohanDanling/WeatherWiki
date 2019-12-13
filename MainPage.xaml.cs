@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using WeatherWiki.DataProvider;
+using WeatherWiki.Models;
+using WeatherWiki.UserControls;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,12 +29,22 @@ namespace WeatherWiki
         public MainPage()
         {
             this.InitializeComponent();
+            APIHelper.InitializeClient();
+
+            getWeather();
         }
 
+        private async void getWeather()
+        {
+            var wdp = new WeatherDataProvider();
+            var weather = await wdp.GetWeather("skövde");
 
+            CurrentWeatherComponent.AddCurrentWeatherDataToUI(weather);
+        }
 
         private void Search_City(object sender, RoutedEventArgs e)
         {
+
 
         }
     }

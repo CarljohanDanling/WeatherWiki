@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using WeatherWiki.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -26,62 +27,7 @@ namespace WeatherWiki.UserControls
 
             ObservableCollection<ForecastDay> forecastDays = new ObservableCollection<ForecastDay>
             {
-                new ForecastDay()
-                {
-                    Day = "Wed 28",
-                    ImagePath = "/Images/WeatherState/a01d.png",
-                    HighTemperature = 1.2,
-                    LowTemperature = -5,
-                    Condition = "Windy"
-                },
-                new ForecastDay()
-                {
-                    Day = "Tue 12",
-                    ImagePath = "/Images/WeatherState/c04d.png",
-                    HighTemperature = 1.2,
-                    LowTemperature = -5,
-                    Condition = "Rain"
-                },
-                new ForecastDay()
-                {
-                    Day = "Sun 3",
-                    ImagePath = "/Images/WeatherState/d01d.png",
-                    HighTemperature = 1.2,
-                    LowTemperature = -5,
-                    Condition = "Clear"
-                },
-                new ForecastDay()
-                {
-                    Day = "Fri 22",
-                    ImagePath = "/Images/WeatherState/f01d.png",
-                    HighTemperature = 1.2,
-                    LowTemperature = -5,
-                    Condition = "Windy"
-                },
-                new ForecastDay()
-                {
-                    Day = "Thu 4",
-                    ImagePath = "/Images/WeatherState/s03d.png",
-                    HighTemperature = 1.2,
-                    LowTemperature = -5,
-                    Condition = "Rain"
-                },
-                new ForecastDay()
-                {
-                    Day = "Wed 7",
-                    ImagePath = "/Images/WeatherState/s01d.png",
-                    HighTemperature = 1.2,
-                    LowTemperature = -5,
-                    Condition = "Rain"
-                },
-                new ForecastDay()
-                {
-                    Day = "Sat 29",
-                    ImagePath = "/Images/WeatherState/t02n.png",
-                    HighTemperature = 1.2,
-                    LowTemperature = -5,
-                    Condition = "Rain"
-                }
+
             };
 
             observableColletionForecast.ItemsSource = forecastDays;

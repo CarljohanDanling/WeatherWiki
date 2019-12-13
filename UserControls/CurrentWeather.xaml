@@ -48,7 +48,7 @@
                                    Grid.Column="2"
                                    FontSize="25"
                                    Foreground="white"
-                                   Margin="12"/>
+                                   Margin="13"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="3">

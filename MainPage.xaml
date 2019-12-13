@@ -76,12 +76,14 @@
 
             <!--CURRENT WEATHER-->
             <Grid Grid.Row="0">
-                <uc:CurrentWeather HorizontalAlignment="Center"/>
+                <uc:CurrentWeather x:Name="CurrentWeatherComponent"
+                                   HorizontalAlignment="Center"/>
             </Grid>
 
             <!--FORECAST-->
             <Grid Grid.Row="2">
-                <uc:Forecast HorizontalAlignment="Center"/>
+                <uc:Forecast x:Name="ForecastWeatherComponent" 
+                             HorizontalAlignment="Center"/>
             </Grid>
         </Grid>
     </Grid>

@@ -119,8 +119,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataProvider\APIHelper.cs" />
+    <Compile Include="DataProvider\WeatherDataProvider.cs" />
     <Compile Include="Models\Weather.cs" />
-    <Compile Include="Models\WeatherData.cs" />
     <Compile Include="UserControls\CurrentWeather.xaml.cs">
       <DependentUpon>CurrentWeather.xaml</DependentUpon>
     </Compile>
@@ -238,9 +239,7 @@
       <Version>12.0.3</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataProvider\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
