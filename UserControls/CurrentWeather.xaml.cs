@@ -1,19 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using WeatherWiki.Models;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -33,29 +21,30 @@ namespace WeatherWiki.UserControls
         public CurrentWeather()
         {
             this.InitializeComponent();
-        }   
+        }
 
         public void AddCurrentWeatherDataToUI(WeatherRoot weather)
         {
-            string city = weather.City;
-            string weatherIcon = weather.WeatherData[0].Weather.WeatherIcon;
-            double currentTemperature = weather.WeatherData[0].CurrentTemperature;
-            string condition = weather.WeatherData[0].Weather.ConditionDescription;
-            string updated = DateTime.Now.ToString("HH:mm");
+            var processedObject = ProcessObject(weather);
 
             ObservableCollection<CurrentWeatherData> currentWeather = new ObservableCollection<CurrentWeatherData>
             {
-                new CurrentWeatherData()
-                {
-                    City = city,
-                    ImagePath = $"/Images/WeatherState/{weatherIcon}.png",
-                    Temperature = currentTemperature,
-                    Condition = condition,
-                    Updated = "Updated as of " + updated
-                }
+                processedObject
             };
 
             observableColletionCurrentWeather.ItemsSource = currentWeather;
+        }
+
+        private CurrentWeatherData ProcessObject(WeatherRoot weather)
+        {
+            return new CurrentWeatherData
+            {
+                City = weather.City,
+                ImagePath = $"/Images/WeatherState/{weather.WeatherData[0].Weather.WeatherIcon}.png",
+                Temperature = weather.WeatherData[0].CurrentTemperature,
+                Condition = weather.WeatherData[0].Weather.ConditionDescription,
+                Updated = DateTime.Now.ToString("HH:mm")
+            };
         }
     }
 }

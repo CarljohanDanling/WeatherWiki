@@ -46,7 +46,7 @@ namespace WeatherWiki.Models
 
     public class WeatherData
     {
-        public int moonrise_ts { get; set; }
+        public double? moonrise_ts { get; set; }
         public string wind_cdir { get; set; }
         public int rh { get; set; }
         public double pres { get; set; }
@@ -54,14 +54,14 @@ namespace WeatherWiki.Models
         [JsonProperty("high_temp")]
         public double HighTemperature { get; set; }
 
-        public int sunset_ts { get; set; }
+        public int? sunset_ts { get; set; }
         public double ozone { get; set; }
         public double moon_phase { get; set; }
         public double wind_gust_spd { get; set; }
         public double snow_depth { get; set; }  
         public int clouds { get; set; }
         public int ts { get; set; }
-        public int sunrise_ts { get; set; }
+        public int? sunrise_ts { get; set; }
         public double app_min_temp { get; set; }
         public double wind_spd { get; set; }
         public int pop { get; set; }
@@ -88,7 +88,7 @@ namespace WeatherWiki.Models
         [JsonProperty("low_temp")]
         public double LowTemperature { get; set; }
         public double max_temp { get; set; }
-        public int moonset_ts { get; set; }
+        public int? moonset_ts { get; set; }
         public string datetime { get; set; }
 
         [JsonProperty("temp")]

@@ -18,11 +18,11 @@
         <ItemsControl.ItemTemplate>
             <DataTemplate>
                 <StackPanel BorderBrush="Black" 
-                                BorderThickness="0.5" 
-                                VerticalAlignment="Center" 
-                                Width="140"
-                                Padding="0, 20, 0, 20"
-                                Margin="10">
+                            BorderThickness="0.5" 
+                            VerticalAlignment="Center" 
+                            Width="130"
+                            Padding="10"
+                            Margin="10">
 
                     <StackPanel.Background>
                         <SolidColorBrush Color="White" Opacity="0.3"/>
@@ -30,7 +30,7 @@
 
                     <TextBlock Text="{Binding Day}" HorizontalAlignment="Center"/>
                     <Image Source="{Binding ImagePath}" Width="50"/>
-                    
+
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
                         <TextBlock Text="{Binding HighTemperature}"/>
@@ -38,7 +38,7 @@
                         <TextBlock Text="{Binding LowTemperature}"/>
                         <TextBlock Text="°"/>
                     </StackPanel>
-                    
+
                     <TextBlock Text="{Binding Condition}" HorizontalAlignment="Center"/>
 
                 </StackPanel>

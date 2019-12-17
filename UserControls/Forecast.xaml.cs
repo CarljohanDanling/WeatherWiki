@@ -36,12 +36,28 @@ namespace WeatherWiki.UserControls
 
         public void AddForecastWeatherDataToUI(WeatherRoot weather)
         {
-            var processedObject = ProcessObject(weather);
+            var listOfForecastWeather = ProcessObject(weather);
 
             ObservableCollection<ForecastDay> forecastDays = new ObservableCollection<ForecastDay>();
-
-            foreach (var item in processedObject.WeatherData)
+            
+            foreach (var forecast in listOfForecastWeather)
             {
+                forecastDays.Add(forecast);
+            }
+
+            observableColletionForecast.ItemsSource = forecastDays;
+        }
+
+        public List<ForecastDay> ProcessObject(WeatherRoot weather)
+        {
+            weather.WeatherData.RemoveAt(0);
+            List<ForecastDay> forecastDays = new List<ForecastDay>();
+
+            foreach (var item in weather.WeatherData)
+            {
+                DateTime dateTime = DateTime.Parse(item.Date);
+                item.Date = dateTime.ToString("ddd") + " " + dateTime.Day.ToString();
+
                 var forecastDay = new ForecastDay
                 {
                     Day = item.Date,
@@ -54,24 +70,7 @@ namespace WeatherWiki.UserControls
                 forecastDays.Add(forecastDay);
             }
 
-            observableColletionForecast.ItemsSource = forecastDays;
-        }
-
-        public WeatherRoot ProcessObject(WeatherRoot weather)
-        {
-            weather.WeatherData.RemoveAt(0);
-
-            foreach (var item in weather.WeatherData)
-            {
-                DateTime dateTime = DateTime.Parse(item.Date);
-                item.Date = dateTime.ToString("ddd") + " " + dateTime.Day.ToString();
-                string weatherIcon = item.Weather.WeatherIcon;
-                double highTemp = item.HighTemperature;
-                double lowTemp = item.LowTemperature;
-                string condition = item.Weather.ConditionDescription;
-            }
-
-            return weather;
+            return forecastDays;
         }
     }
 }
