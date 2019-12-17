@@ -130,7 +130,6 @@
     </Compile>
     <Compile Include="DataProvider\APIHelper.cs" />
     <Compile Include="DataProvider\GeneralDataProvider.cs" />
-    <Compile Include="DataProvider\IGeneralDataProvider.cs" />
     <Compile Include="DataProvider\SuggestionDataProvider.cs" />
     <Compile Include="DataProvider\WeatherDataProvider.cs" />
     <Compile Include="Models\ApiTagger.cs" />

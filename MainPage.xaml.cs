@@ -30,7 +30,7 @@ namespace WeatherWiki
         private async void getWeather(string userInput)
         {
             var gdp = new GeneralDataProvider();
-            var weather  = await gdp.GenericMethodTest<WeatherRoot>(new ApiTagger
+            var weather  = await gdp.GetDataGeneric<WeatherRoot>(new ApiTagger
             {
                 Input = userInput,
                 TypeOfApi = "weather"
@@ -51,7 +51,7 @@ namespace WeatherWiki
         private async Task<List<Suggestion>> getSuggestion(string userInput)
         {
             var gdp = new GeneralDataProvider();
-            var suggestion = await gdp.GenericMethodTest<SuggestionRoot>(new ApiTagger
+            var suggestion = await gdp.GetDataGeneric<SuggestionRoot>(new ApiTagger
             {
                 Input = userInput,
                 TypeOfApi = "suggestion"

@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using WeatherWiki.Models;
 
@@ -11,7 +7,7 @@ namespace WeatherWiki.DataProvider
 {
     public class GeneralDataProvider
     {
-        public async Task<T> GenericMethodTest<T>(ApiTagger apiTagger) 
+        public async Task<T> GetDataGeneric<T>(ApiTagger apiTagger) 
         {
             string URL = UrlBuilder(apiTagger);
             var providedData = new object();
