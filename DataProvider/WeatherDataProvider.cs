@@ -25,6 +25,11 @@ namespace WeatherWiki.DataProvider
 
                     weatherData = data;
                 }
+
+                else
+                {
+                    return null;
+                }
             }
 
             return weatherData;
