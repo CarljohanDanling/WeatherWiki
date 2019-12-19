@@ -19,8 +19,6 @@ namespace WeatherWiki
         {
             this.InitializeComponent();
             APIHelper.InitializeClient();
-
-            // Setting preferred launch size.
             ApplicationView.PreferredLaunchViewSize = new Size(1120, 720);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
 
@@ -30,7 +28,7 @@ namespace WeatherWiki
         private async void getWeather(string userInput)
         {
             var gdp = new GeneralDataProvider();
-            var weather  = await gdp.GetDataGeneric<WeatherRoot>(new ApiTagger
+            var weather  = await gdp.GetData<WeatherRoot>(new ApiTagger
             {
                 Input = userInput,
                 TypeOfApi = "weather"
@@ -51,7 +49,7 @@ namespace WeatherWiki
         private async Task<List<Suggestion>> getSuggestion(string userInput)
         {
             var gdp = new GeneralDataProvider();
-            var suggestion = await gdp.GetDataGeneric<SuggestionRoot>(new ApiTagger
+            var suggestion = await gdp.GetData<SuggestionRoot>(new ApiTagger
             {
                 Input = userInput,
                 TypeOfApi = "suggestion"
@@ -62,7 +60,8 @@ namespace WeatherWiki
 
         private async void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput 
+                && sender.Text.Length > 1)
             {
                 var listOfSuggestions = await getSuggestion(sender.Text);
 

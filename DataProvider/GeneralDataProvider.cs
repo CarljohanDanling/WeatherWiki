@@ -7,10 +7,10 @@ namespace WeatherWiki.DataProvider
 {
     public class GeneralDataProvider
     {
-        public async Task<T> GetDataGeneric<T>(ApiTagger apiTagger) 
+        public async Task<T> GetData<T>(ApiTagger apiTagger)
         {
             string URL = UrlBuilder(apiTagger);
-            var providedData = new object();
+            T providedData = default;
 
             using (HttpResponseMessage response = await APIHelper.ApiClient.GetAsync(URL))
             {
@@ -23,7 +23,7 @@ namespace WeatherWiki.DataProvider
                 }
             }
 
-            return (T)providedData;
+            return providedData;
         }
 
         private string UrlBuilder(ApiTagger apiTagger)
