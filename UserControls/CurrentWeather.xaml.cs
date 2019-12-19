@@ -3,8 +3,6 @@ using System.Collections.ObjectModel;
 using WeatherWiki.Models;
 using Windows.UI.Xaml.Controls;
 
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace WeatherWiki.UserControls
 {
     public class CurrentWeatherData
@@ -18,20 +16,18 @@ namespace WeatherWiki.UserControls
 
     public sealed partial class CurrentWeather : UserControl
     {
+        private ObservableCollection<CurrentWeatherData> currentWeather;
+
         public CurrentWeather()
         {
             this.InitializeComponent();
+            currentWeather = new ObservableCollection<CurrentWeatherData>();
         }
 
         public void AddCurrentWeatherDataToUI(WeatherRoot weather)
         {
-            var processedObject = ProcessObject(weather);
-
-            ObservableCollection<CurrentWeatherData> currentWeather = new ObservableCollection<CurrentWeatherData>
-            {
-                processedObject
-            };
-
+            currentWeather.Clear();
+            currentWeather.Add(ProcessObject(weather));
             observableColletionCurrentWeather.ItemsSource = currentWeather;
         }
 

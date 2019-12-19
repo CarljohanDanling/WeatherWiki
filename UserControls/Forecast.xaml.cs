@@ -1,21 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using WeatherWiki.Models;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace WeatherWiki.UserControls
 {
@@ -29,28 +16,28 @@ namespace WeatherWiki.UserControls
     }
     public sealed partial class Forecast : UserControl
     {
+        private ObservableCollection<ForecastDay> forecastDays;
+
         public Forecast()
         {
             this.InitializeComponent();
+            forecastDays = new ObservableCollection<ForecastDay>();
         }
 
         public void AddForecastWeatherDataToUI(WeatherRoot weather)
         {
-            var listOfForecastWeather = ProcessObject(weather);
+            forecastDays.Clear();
 
-            ObservableCollection<ForecastDay> forecastDays = new ObservableCollection<ForecastDay>();
-            
-            foreach (var forecast in listOfForecastWeather)
-            {
-                forecastDays.Add(forecast);
-            }
+            var listOfForecastWeather = ProcessObject(weather);
+            listOfForecastWeather.ForEach(x => forecastDays.Add(x));
 
             observableColletionForecast.ItemsSource = forecastDays;
         }
 
         public List<ForecastDay> ProcessObject(WeatherRoot weather)
-        {
+        {   // First object is not a forecast object.
             weather.WeatherData.RemoveAt(0);
+
             List<ForecastDay> forecastDays = new List<ForecastDay>();
 
             foreach (var item in weather.WeatherData)

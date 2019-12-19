@@ -46,7 +46,7 @@ namespace WeatherWiki
             ForecastWeatherComponent.AddForecastWeatherDataToUI(weather);
         }
 
-        private async Task<List<Suggestion>> getSuggestion(string userInput)
+        private async Task<List<Suggestion>> getSuggestions(string userInput)
         {
             var gdp = new GeneralDataProvider();
             var suggestion = await gdp.GetData<SuggestionRoot>(new ApiTagger
@@ -60,10 +60,10 @@ namespace WeatherWiki
 
         private async void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput 
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput
                 && sender.Text.Length > 1)
             {
-                var listOfSuggestions = await getSuggestion(sender.Text);
+                var listOfSuggestions = await getSuggestions(sender.Text);
 
                 if (listOfSuggestions == null)
                 {
@@ -85,7 +85,7 @@ namespace WeatherWiki
                 return;
             }
 
-            // If user presses 'enter' instead of clicking suggestion.
+            // If user presses 'enter' instead of clicking on a suggestion.
             else if (args.ChosenSuggestion == null)
             {
                 getWeather(StringCleaner(args.QueryText));
