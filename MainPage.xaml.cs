@@ -30,7 +30,7 @@ namespace WeatherWiki
             var gdp = new GeneralDataProvider();
             var weather  = await gdp.GetData<WeatherRoot>(new ApiTagger
             {
-                Input = userInput,
+                Input = userInput, 
                 TypeOfApi = "weather"
             });
 
@@ -61,7 +61,7 @@ namespace WeatherWiki
         private async void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput
-                && sender.Text.Length > 1)
+                && sender.Text.Length > 2)
             {
                 var listOfSuggestions = await getSuggestions(sender.Text);
 

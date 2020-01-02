@@ -107,6 +107,7 @@
 
             
             
+            
             <!--CURRENT WEATHER-->
             <Grid Grid.Row="0">
                 <uc:CurrentWeather x:Name="CurrentWeatherComponent"

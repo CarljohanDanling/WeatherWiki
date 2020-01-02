@@ -32,7 +32,9 @@
                                HorizontalAlignment="Center"/>
 
                     <!--CONDITION, TEMPERATUR & METRIC-->
-                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <StackPanel Grid.Row="1" 
+                                Orientation="Horizontal" 
+                                HorizontalAlignment="Center">
 
                         <Image Grid.Column="0"
                                Source="{Binding ImagePath}" 
