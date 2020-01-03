@@ -1,2 +1,2 @@
 # WeatherWiki
-To be announced...
+An UWP weather app including autosuggestions.
