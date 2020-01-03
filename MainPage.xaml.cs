@@ -35,10 +35,10 @@ namespace WeatherWiki
                 CurrentWeatherComponent.AddCurrentWeatherDataToUI(weather);
                 ForecastWeatherComponent.AddForecastWeatherDataToUI(weather);
                 errorMessage.Text = " ";
+                return;
             }
 
             errorMessage.Text = "Invalid city name";
-            return;
         }
 
         private async Task<List<Suggestion>> getSuggestions(string userInput)
@@ -61,8 +61,6 @@ namespace WeatherWiki
                     listOfSuggestions.ForEach(x => suggestions.Add(x.SuggestedValue));
                     sender.ItemsSource = suggestions;
                 }
-
-                return;
             }
         }
 
