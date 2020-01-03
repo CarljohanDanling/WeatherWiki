@@ -7,9 +7,9 @@ namespace WeatherWiki.DataProvider
 {
     public class GeneralDataProvider
     {
-        public async Task<T> GetData<T>(ApiTagger apiTagger)
+        public async Task<T> GetData<T>(string userInput, string typeOfApi)
         {
-            string URL = UrlBuilder(apiTagger);
+            string URL = UrlBuilder(userInput, typeOfApi);
             T providedData = default;
 
             using (HttpResponseMessage response = await APIHelper.ApiClient.GetAsync(URL))
@@ -26,14 +26,14 @@ namespace WeatherWiki.DataProvider
             return providedData;
         }
 
-        private string UrlBuilder(ApiTagger apiTagger)
+        private string UrlBuilder(string userInput, string typeOfApi)
         {
-            if (apiTagger.TypeOfApi == "weather")
+            if (typeOfApi == "weather")
             {
-                return $"https://api.weatherbit.io/v2.0/forecast/daily?city={apiTagger.Input}&days=7&key=b11292cc43f94dbcb931a25da7d56660";
+                return $"https://api.weatherbit.io/v2.0/forecast/daily?city={userInput}&days=7&key=b11292cc43f94dbcb931a25da7d56660";
             }
 
-            return $"http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?text={apiTagger.Input}&f=json";
+            return $"http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?text={userInput}&f=json";
         }
     }
 }

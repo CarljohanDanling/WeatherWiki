@@ -104,9 +104,6 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-
-            
-            
             
             <!--CURRENT WEATHER-->
             <Grid Grid.Row="0">

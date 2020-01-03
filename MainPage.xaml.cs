@@ -13,7 +13,7 @@ namespace WeatherWiki
     public sealed partial class MainPage : Page
     {
         // Collection with autosuggestions.
-        private ObservableCollection<String> suggestions;
+        private ObservableCollection<string> suggestions;
 
         public MainPage()
         {
@@ -28,51 +28,41 @@ namespace WeatherWiki
         private async void getWeather(string userInput)
         {
             var gdp = new GeneralDataProvider();
-            var weather  = await gdp.GetData<WeatherRoot>(new ApiTagger
-            {
-                Input = userInput, 
-                TypeOfApi = "weather"
-            });
+            var weather = await gdp.GetData<WeatherRoot>(userInput, "weather");
 
-            if (weather == null)
+            if (weather != null)
             {
-                errorMessage.Text = "Invalid city name";
-                return;
+                CurrentWeatherComponent.AddCurrentWeatherDataToUI(weather);
+                ForecastWeatherComponent.AddForecastWeatherDataToUI(weather);
+                errorMessage.Text = " ";
             }
 
-            errorMessage.Text = " ";
-
-            CurrentWeatherComponent.AddCurrentWeatherDataToUI(weather);
-            ForecastWeatherComponent.AddForecastWeatherDataToUI(weather);
+            errorMessage.Text = "Invalid city name";
+            return;
         }
 
         private async Task<List<Suggestion>> getSuggestions(string userInput)
         {
             var gdp = new GeneralDataProvider();
-            var suggestion = await gdp.GetData<SuggestionRoot>(new ApiTagger
-            {
-                Input = userInput,
-                TypeOfApi = "suggestion"
-            });
+            var suggestion = await gdp.GetData<SuggestionRoot>(userInput, "suggestion");
 
             return suggestion.Suggestions;
         }
 
         private async void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput
-                && sender.Text.Length > 2)
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput && sender.Text.Length > 2)
             {
                 var listOfSuggestions = await getSuggestions(sender.Text);
 
-                if (listOfSuggestions == null)
+                if (listOfSuggestions != null)
                 {
-                    return;
+                    suggestions.Clear();
+                    listOfSuggestions.ForEach(x => suggestions.Add(x.SuggestedValue));
+                    sender.ItemsSource = suggestions;
                 }
 
-                suggestions.Clear();
-                listOfSuggestions.ForEach(x => suggestions.Add(x.SuggestedValue));
-                sender.ItemsSource = suggestions;
+                return;
             }
         }
 
@@ -107,18 +97,5 @@ namespace WeatherWiki
 
             return input;
         }
-
-
-        //private void MenuSelected(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
-        //{
-        //    var item = NavigationMenu.SelectedItem as NavigationViewItem;
-
-        //    switch (item.Tag)
-        //    {
-        //        case "current":
-        //            ContentFrame.Navigate(typeof(CurrentWeather));
-        //            break;
-        //    }
-        //}
     }
 }

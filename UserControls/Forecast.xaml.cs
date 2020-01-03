@@ -14,28 +14,30 @@ namespace WeatherWiki.UserControls
         public double LowTemperature { get; set; }
         public string Condition { get; set; }
     }
+
     public sealed partial class Forecast : UserControl
     {
-        private ObservableCollection<ForecastDay> forecastDays;
+        private ObservableCollection<ForecastDay> forecast;
 
         public Forecast()
         {
             this.InitializeComponent();
-            forecastDays = new ObservableCollection<ForecastDay>();
+            forecast = new ObservableCollection<ForecastDay>();
         }
 
         public void AddForecastWeatherDataToUI(WeatherRoot weather)
         {
-            forecastDays.Clear();
+            forecast.Clear();
 
             var listOfForecastWeather = ProcessObject(weather);
-            listOfForecastWeather.ForEach(x => forecastDays.Add(x));
+            listOfForecastWeather.ForEach(x => forecast.Add(x));
 
-            observableColletionForecast.ItemsSource = forecastDays;
+            observableColletionForecast.ItemsSource = forecast;
         }
 
         public List<ForecastDay> ProcessObject(WeatherRoot weather)
-        {   // First object is not a forecast object.
+        {   
+            // First object is not a forecast object.
             weather.WeatherData.RemoveAt(0);
 
             List<ForecastDay> forecastDays = new List<ForecastDay>();
