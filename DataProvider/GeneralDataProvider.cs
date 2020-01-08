@@ -33,7 +33,7 @@ namespace WeatherWiki.DataProvider
                 case "weather":
                     return $"https://api.weatherbit.io/v2.0/forecast/daily?city={userInput}&days=7&key=b11292cc43f94dbcb931a25da7d56660";
                 default: 
-                    return "$http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?text={userInput}&f=json";
+                    return $"http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?text={userInput}&f=json";
             }
         }
     }
