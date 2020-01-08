@@ -27,23 +27,6 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <!--<NavigationView x:Name="NavigationMenu" 
-                        SelectionChanged="MenuSelected" 
-                        Grid.RowSpan="2" 
-                        Grid.Row="1"
-                        IsBackButtonVisible="Collapsed"
-                        IsSettingsVisible="False"
-                        IsPaneOpen="False"
-                        PaneDisplayMode="LeftCompact"
-                        IsPaneToggleButtonVisible="False">
-
-            <NavigationView.MenuItems>
-                <NavigationViewItem Icon="Home" Tag="current"/>
-                <NavigationViewItem Icon="Account" Tag="forecast"/>
-            </NavigationView.MenuItems>
-            <Frame x:Name="ContentFrame"/>
-        </NavigationView>-->
-
         <!--HEADER-->
         <Grid Margin="0,0,0,550" Grid.RowSpan="3">
             <Grid.ColumnDefinitions>
