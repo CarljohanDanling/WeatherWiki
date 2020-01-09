@@ -39,7 +39,6 @@ namespace WeatherWiki.Models
         public string StateCode { get; set; }
     }
 
-
     public class WeatherData
     {
         public double? moonrise_ts { get; set; }

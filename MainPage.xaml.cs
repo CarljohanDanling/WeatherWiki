@@ -21,7 +21,6 @@ namespace WeatherWiki
             APIHelper.InitializeClient();
             ApplicationView.PreferredLaunchViewSize = new Size(1120, 720);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-
             suggestions = new ObservableCollection<string>();
         }
 
