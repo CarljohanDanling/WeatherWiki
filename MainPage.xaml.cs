@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using WeatherWiki.DataProvider;
@@ -32,7 +31,7 @@ namespace WeatherWiki
             if (weather != null)
             {
                 CurrentWeatherComponent.AddCurrentWeatherDataToUI(weather);
-                ForecastWeatherComponent.AddForecastWeatherDataToUI(weather);
+                ForecastWeatherComponent.AddForecastWeatherDataToUI(weather.WeatherData);
                 errorMessage.Text = " ";
                 return;
             }
@@ -60,6 +59,11 @@ namespace WeatherWiki
                     listOfSuggestions.ForEach(x => suggestions.Add(x.SuggestedValue));
                     sender.ItemsSource = suggestions;
                 }
+            }
+
+            if (sender.Text.Length < 1) // Clears all suggestions if user deletes the search string.
+            {
+                suggestions.Clear();
             }
         }
 

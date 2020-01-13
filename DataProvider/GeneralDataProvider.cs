@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Net.Http;
 using System.Threading.Tasks;
-using WeatherWiki.Models;
 
 namespace WeatherWiki.DataProvider
 {

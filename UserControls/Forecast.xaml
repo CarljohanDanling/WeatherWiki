@@ -9,7 +9,7 @@
     d:DesignHeight="400"
     d:DesignWidth="400">
 
-    <ItemsControl Name="observableColletionForecast">
+    <ItemsControl Name="forecastItemsControl">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <ItemsWrapGrid Orientation="Horizontal"/>

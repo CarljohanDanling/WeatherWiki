@@ -31,11 +31,11 @@
                                Foreground="white"
                                HorizontalAlignment="Center"/>
 
-                    <!--CONDITION, TEMPERATUR & METRIC-->
+                    <!--CONDITION IMAGE, TEMPERATURE-->
                     <StackPanel Grid.Row="1" 
                                 Orientation="Horizontal" 
                                 HorizontalAlignment="Center">
-
+                        
                         <Image Grid.Column="0"
                                Source="{Binding ImagePath}" 
                                Height="70"
@@ -54,6 +54,7 @@
                                    Margin="13"/>
                     </StackPanel>
 
+                    <!--CONDITION TEXT, UPDATED-->
                     <StackPanel Grid.Row="3">
                         <TextBlock Text="{Binding Condition}" 
                                    Foreground="White"

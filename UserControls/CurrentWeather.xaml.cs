@@ -27,6 +27,7 @@ namespace WeatherWiki.UserControls
         public void AddCurrentWeatherDataToUI(WeatherRoot weather)
         {
             currentWeather.Clear();
+
             currentWeather.Add(ProcessObject(weather));
             observableColletionCurrentWeather.ItemsSource = currentWeather;
         }
@@ -36,11 +37,16 @@ namespace WeatherWiki.UserControls
             return new CurrentWeatherData
             {
                 City = weather.City,
-                ImagePath = $"/Images/WeatherState/{weather.WeatherData[0].Weather.WeatherIcon}.png",
+                ImagePath = ProcessImagePath(weather.WeatherData[0].Weather.WeatherIcon),
                 Temperature = weather.WeatherData[0].CurrentTemperature,
                 Condition = weather.WeatherData[0].Weather.ConditionDescription,
                 Updated = DateTime.Now.ToString("HH:mm")
             };
+        }
+
+        private string ProcessImagePath(string weatherIcon)
+        {
+            return $"/Images/WeatherState/{weatherIcon}.png";
         }
     }
 }

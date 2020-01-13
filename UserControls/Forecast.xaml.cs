@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using WeatherWiki.Models;
 using Windows.UI.Xaml.Controls;
 
@@ -25,41 +26,41 @@ namespace WeatherWiki.UserControls
             forecast = new ObservableCollection<ForecastDay>();
         }
 
-        public void AddForecastWeatherDataToUI(WeatherRoot weather)
+        public void AddForecastWeatherDataToUI(List<WeatherData> weatherData)
         {
             forecast.Clear();
 
-            var listOfForecastWeather = ProcessObject(weather);
-            listOfForecastWeather.ForEach(x => forecast.Add(x));
-
-            observableColletionForecast.ItemsSource = forecast;
-        }
-
-        public List<ForecastDay> ProcessObject(WeatherRoot weather)
-        {   
-            // First object is not a forecast object.
-            weather.WeatherData.RemoveAt(0);
-
-            List<ForecastDay> forecastDays = new List<ForecastDay>();
-
-            foreach (var item in weather.WeatherData)
+            foreach (var data in weatherData.Skip(1)) // Skip(1) because first object is not an forecast object.
             {
-                DateTime dateTime = DateTime.Parse(item.Date);
-                item.Date = dateTime.ToString("ddd") + " " + dateTime.Day.ToString();
-
-                var forecastDay = new ForecastDay
-                {
-                    Day = item.Date,
-                    ImagePath = $"/Images/WeatherState/{item.Weather.WeatherIcon}.png",
-                    HighTemperature = item.HighTemperature,
-                    LowTemperature = item.LowTemperature,
-                    Condition = item.Weather.ConditionDescription
-                };
-
-                forecastDays.Add(forecastDay);
+                forecast.Add(ProcessObject(data));
             }
 
-            return forecastDays;
+            forecastItemsControl.ItemsSource = forecast;
+        }
+
+        private ForecastDay ProcessObject(WeatherData weatherData)
+        {
+            return new ForecastDay()
+            {
+                Day = ProcessDate(weatherData.datetime),
+                ImagePath = ProcessImagePath(weatherData.Weather.WeatherIcon),
+                HighTemperature = weatherData.HighTemperature,
+                LowTemperature = weatherData.LowTemperature,
+                Condition = weatherData.Weather.ConditionDescription
+            };
+        }
+
+        private string ProcessImagePath(string weatherIcon)
+        {
+            return $"/Images/WeatherState/{weatherIcon}.png";
+        }
+
+        private string ProcessDate(string date)
+        {
+            DateTime dateTime = DateTime.Parse(date);
+            date = dateTime.ToString("ddd") + " " + dateTime.Day.ToString();
+
+            return date;
         }
     }
 }
