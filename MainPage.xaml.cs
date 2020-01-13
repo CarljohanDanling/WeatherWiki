@@ -59,11 +59,11 @@ namespace WeatherWiki
                     listOfSuggestions.ForEach(x => suggestions.Add(x.SuggestedValue));
                     sender.ItemsSource = suggestions;
                 }
-            }
 
-            if (sender.Text.Length < 1) // Clears all suggestions if user deletes the search string.
-            {
-                suggestions.Clear();
+                if (sender.Text.Length < 1) // Clears all suggestions if user deletes the search string.
+                {
+                    suggestions.Clear();
+                }
             }
         }
 
@@ -91,12 +91,7 @@ namespace WeatherWiki
 
         private string StringCleaner(string input)
         {
-            if (input.Contains(","))
-            {
-                return input.Substring(0, input.IndexOf(","));
-            }
-
-            return input;
+            return input.Substring(0, input.IndexOf(","));
         }
     }
 }
