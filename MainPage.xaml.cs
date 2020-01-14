@@ -47,23 +47,32 @@ namespace WeatherWiki
             return suggestion.Suggestions;
         }
 
-        private async void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput && sender.Text.Length > 2)
+            bool isUserInputReason = args.Reason == 0; // 0 is for UserInput.
+            bool isUserInputMinimumLength = sender.Text.Length > 2;
+
+            if (isUserInputReason && isUserInputMinimumLength)
             {
-                var listOfSuggestions = await getSuggestions(sender.Text);
+                PopulateAutoSuggestionBox(sender);
+                return;
+            }
 
-                if (listOfSuggestions != null)
-                {
-                    suggestions.Clear();
-                    listOfSuggestions.ForEach(x => suggestions.Add(x.SuggestedValue));
-                    sender.ItemsSource = suggestions;
-                }
+            if (string.IsNullOrEmpty(sender.Text))
+            {
+                suggestions.Clear();
+            }
+        }
 
-                if (sender.Text.Length < 1) // Clears all suggestions if user deletes the search string.
-                {
-                    suggestions.Clear();
-                }
+        private async void PopulateAutoSuggestionBox(AutoSuggestBox sender)
+        {
+            var listOfSuggestions = await getSuggestions(sender.Text);
+
+            if (listOfSuggestions != null)
+            {
+                suggestions.Clear();
+                listOfSuggestions.ForEach(x => suggestions.Add(x.SuggestedValue));
+                sender.ItemsSource = suggestions;
             }
         }
 
@@ -91,7 +100,7 @@ namespace WeatherWiki
 
         private string StringCleaner(string input)
         {
-            return input.Substring(0, input.IndexOf(","));
+            return input.Contains(",") ? input.Substring(0, input.IndexOf(",")) : input;
         }
     }
 }
