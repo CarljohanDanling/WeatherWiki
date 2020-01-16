@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using WeatherWiki.Models;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace WeatherWiki.UserControls
 {
-    public class ForecastDay
+    public class ForecastDailyData
     {
         public string Day { get; set; }
         public string ImagePath { get; set; }
@@ -16,31 +17,31 @@ namespace WeatherWiki.UserControls
         public string Condition { get; set; }
     }
 
-    public sealed partial class Forecast : UserControl
+    public sealed partial class ForecastDaily : UserControl
     {
-        private ObservableCollection<ForecastDay> forecast;
+        private ObservableCollection<ForecastDailyData> forecastDaily;
 
-        public Forecast()
+        public ForecastDaily()
         {
             this.InitializeComponent();
-            forecast = new ObservableCollection<ForecastDay>();
+            forecastDaily = new ObservableCollection<ForecastDailyData>();
         }
 
         public void AddForecastWeatherDataToUI(List<WeatherData> weatherData)
         {
-            forecast.Clear();
+            forecastDaily.Clear();
 
             foreach (var data in weatherData.Skip(1)) // Skip(1) because first object is not an forecast object.
             {
-                forecast.Add(ProcessObject(data));
+                forecastDaily.Add(ProcessObject(data));
             }
 
-            forecastItemsControl.ItemsSource = forecast;
+            forecastDailyItemsControl.ItemsSource = forecastDaily;
         }
 
-        private ForecastDay ProcessObject(WeatherData weatherData)
+        private ForecastDailyData ProcessObject(WeatherData weatherData)
         {
-            return new ForecastDay()
+            return new ForecastDailyData()
             {
                 Day = ProcessDate(weatherData.datetime),
                 ImagePath = ProcessImagePath(weatherData.Weather.WeatherIcon),

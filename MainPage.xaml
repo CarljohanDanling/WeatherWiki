@@ -9,43 +9,43 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <!--MASTER-->
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="170"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="170"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-            <!--BACKGROUND GRADIENT FOR APP-->
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0.1,1" StartPoint="0.5,0">
-                    <GradientStop Color="DodgerBlue" Offset="0"/>
-                    <GradientStop Color="LightBlue" Offset="1"/>
-                </LinearGradientBrush>
-            </Grid.Background>
+        <!--BACKGROUND GRADIENT FOR APP-->
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.1,1" StartPoint="0.5,0">
+                <GradientStop Color="DodgerBlue" Offset="0"/>
+                <GradientStop Color="LightBlue" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
 
-            <TextBlock Name="VersionText"
+        <TextBlock Name="VersionText"
                    Foreground="Black"
                    Margin="0, 10, 10, 0"
                    FontSize="10"
                    HorizontalAlignment="Right"
                    >
                 version 1.0.0-prerelease-a
-            </TextBlock>
+        </TextBlock>
 
-            <!--HEADER-->
-            <Grid Grid.RowSpan="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition MinWidth="260"/>
-                    <ColumnDefinition MinWidth="270"/>
-                    <ColumnDefinition MinWidth="100"/>
-                </Grid.ColumnDefinitions>
+        <!--HEADER-->
+        <Grid Grid.RowSpan="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="260"/>
+                <ColumnDefinition MinWidth="270"/>
+                <ColumnDefinition MinWidth="100"/>
+            </Grid.ColumnDefinitions>
 
-                <StackPanel VerticalAlignment="Center"
+            <StackPanel VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         Margin="0, 25, 0, 0">
 
-                    <AutoSuggestBox x:Name="txtAutoSuggestBox" 
+                <AutoSuggestBox x:Name="txtAutoSuggestBox" 
                                 TextChanged="AutoSuggestBox_TextChanged" 
                                 QuerySubmitted="AutoSuggestBox_QuerySubmitted"
                                 FontSize="20"
@@ -53,22 +53,22 @@
                                 Width="250"
                                 QueryIcon="Find"
                                 >
-                    </AutoSuggestBox>
+                </AutoSuggestBox>
 
-                    <TextBlock x:Name="errorMessage" 
+                <TextBlock x:Name="errorMessage" 
                            HorizontalAlignment="Right"
                            Foreground="White"
                            Text=" "/>
-                </StackPanel>
+            </StackPanel>
 
-                <TextBlock Name="HeaderText" 
+            <TextBlock Name="HeaderText" 
                        Foreground="Black"
                        Grid.Column="1"
                        FontSize="35"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center">
                 WeatherWiki
-                </TextBlock>
+            </TextBlock>
         </Grid>
 
         <!--MAIN-->
@@ -80,6 +80,8 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
 
                 <!--CURRENT WEATHER-->
@@ -88,10 +90,28 @@
                                        HorizontalAlignment="Center"/>
                 </Grid>
 
-                <!--FORECAST-->
-                <Grid Grid.Row="2">
-                    <uc:Forecast x:Name="ForecastWeatherComponent" 
-                                 HorizontalAlignment="Center"/>
+                <!--FORECAST DAILY-->
+                <Grid Grid.Row="2"
+                      Margin="0, 0, 0, 40">
+                    <uc:ForecastDaily x:Name="DailyForecastWeatherComponent" 
+                                      HorizontalAlignment="Center"/>
+                </Grid>
+
+                
+                <!--FORECAST HOURLY-->
+                <Grid Grid.Row="3">
+                    <StackPanel Orientation="Vertical">
+                    <TextBlock x:Name="HourByHourTextBlock" 
+                               Text="Temperature hour by hour"
+                               HorizontalAlignment="Center"
+                               Visibility="Collapsed"
+                               Margin="0, 0, 0, 15"
+                               Foreground="White"
+                               FontSize="20"/>
+                        
+                    <uc:ForecastHourly x:Name="HourlyForecastWeatherComponent"
+                                       HorizontalAlignment="Center"/>
+                    </StackPanel>
                 </Grid>
             </Grid>
         </ScrollViewer>

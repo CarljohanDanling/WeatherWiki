@@ -18,7 +18,7 @@ namespace WeatherWiki
         {
             this.InitializeComponent();
             APIHelper.InitializeClient();
-            ApplicationView.PreferredLaunchViewSize = new Size(1120, 720);
+            ApplicationView.PreferredLaunchViewSize = new Size(1120, 740);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
             suggestions = new ObservableCollection<string>();
         }
@@ -26,17 +26,26 @@ namespace WeatherWiki
         private async void getWeather(string userInput)
         {
             var gdp = new GeneralDataProvider();
-            var weather = await gdp.GetData<WeatherRoot>(userInput, "weather");
+            var weatherDaily = await gdp.GetData<WeatherRoot>(userInput, "weather-daily");
+            var weatherHourly = await gdp.GetData<WeatherRoot>(userInput, "weather-hourly");
 
-            if (weather != null)
+            if (weatherDaily != null && weatherHourly != null)
             {
-                CurrentWeatherComponent.AddCurrentWeatherDataToUI(weather);
-                ForecastWeatherComponent.AddForecastWeatherDataToUI(weather.WeatherData);
+                SendDataToUserControlForDisplay(weatherDaily, weatherHourly);
+                
+                HourByHourTextBlock.Visibility = 0;
                 errorMessage.Text = " ";
                 return;
             }
 
             errorMessage.Text = "Invalid city name";
+        }
+
+        private void SendDataToUserControlForDisplay(WeatherRoot weatherDaily, WeatherRoot weatherHourly)
+        {
+            CurrentWeatherComponent.AddCurrentWeatherDataToUI(weatherDaily);
+            DailyForecastWeatherComponent.AddForecastWeatherDataToUI(weatherDaily.WeatherData);
+            HourlyForecastWeatherComponent.AddHourlyForecastWeatherDataToUI(weatherHourly);
         }
 
         private async Task<List<Suggestion>> getSuggestions(string userInput)
@@ -79,7 +88,7 @@ namespace WeatherWiki
         private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             // Error handeling.
-            if (args.QueryText.Equals(""))
+            if (string.IsNullOrEmpty(args.QueryText))
             {
                 errorMessage.Text = "Need valid input before searching...";
                 return;

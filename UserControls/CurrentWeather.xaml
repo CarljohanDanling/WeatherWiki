@@ -9,7 +9,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <ItemsControl Name="observableColletionCurrentWeather">
+    <ItemsControl Name="currentWeatherItemsControl">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <ItemsWrapGrid Orientation="Horizontal"/>
@@ -18,7 +18,8 @@
         <ItemsControl.ItemTemplate>
             <DataTemplate>
                 <!--CURRENT WEATHER-->
-                <Grid Grid.Row="0" HorizontalAlignment="Center">
+                <Grid Grid.Row="0" 
+                      HorizontalAlignment="Center">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>

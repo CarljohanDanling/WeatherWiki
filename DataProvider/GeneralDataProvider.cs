@@ -29,8 +29,10 @@ namespace WeatherWiki.DataProvider
         {
             switch (typeOfApi)
             {
-                case "weather":
+                case "weather-daily":
                     return $"https://api.weatherbit.io/v2.0/forecast/daily?city={userInput}&days=7&key=b11292cc43f94dbcb931a25da7d56660";
+                case "weather-hourly":
+                    return $"https://api.weatherbit.io/v2.0/forecast/hourly?city={userInput}&key=b11292cc43f94dbcb931a25da7d56660&hours=24";
                 default: 
                     return $"http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?text={userInput}&f=json";
             }

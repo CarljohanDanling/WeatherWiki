@@ -27,9 +27,8 @@ namespace WeatherWiki.UserControls
         public void AddCurrentWeatherDataToUI(WeatherRoot weather)
         {
             currentWeather.Clear();
-
             currentWeather.Add(ProcessObject(weather));
-            observableColletionCurrentWeather.ItemsSource = currentWeather;
+            currentWeatherItemsControl.ItemsSource = currentWeather;
         }
 
         private CurrentWeatherData ProcessObject(WeatherRoot weather)

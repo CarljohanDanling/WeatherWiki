@@ -7,8 +7,6 @@ namespace WeatherWiki.Models
     {
         [JsonProperty("text")]
         public string SuggestedValue { get; set; }
-        public string magicKey { get; set; }
-        public bool isCollection { get; set; }
     }
 
     public class SuggestionRoot
