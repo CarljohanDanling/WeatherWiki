@@ -18,7 +18,7 @@
 
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <StackPanel>
+                <StackPanel Padding="0, 0, 0, 10">
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                         <TextBlock Text="{Binding Temperature}"/>
                         <TextBlock Text="°"/>

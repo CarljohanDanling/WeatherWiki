@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using WeatherWiki.Models;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace WeatherWiki.UserControls
 {
@@ -27,8 +26,8 @@ namespace WeatherWiki.UserControls
         public void AddHourlyForecastWeatherDataToUI(WeatherRoot weather)
         {
             forecastHourly.Clear();
-
-            foreach (var item in ProcessList(weather.WeatherData))
+            
+            foreach (var item in FilterList(weather.WeatherData))
             {
                 forecastHourly.Add(ProcessObject(item));
                 forecastHourlyItemsControl.ItemsSource = forecastHourly;
@@ -55,7 +54,7 @@ namespace WeatherWiki.UserControls
             return time.Substring(time.IndexOf("T") + 1, 5);
         }
 
-        private IEnumerable<WeatherData> ProcessList(List<WeatherData> weatherData)
+        private IEnumerable<WeatherData> FilterList(List<WeatherData> weatherData)
         {
             return weatherData.Where((x, i) => i % 2 == 0).Skip(1);
         }

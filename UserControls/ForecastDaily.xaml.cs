@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using WeatherWiki.Models;
-using Windows.UI.Xaml;
+using Windows.UI;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Markup;
+using Windows.UI.Xaml.Media;
 
 namespace WeatherWiki.UserControls
 {
@@ -62,6 +65,29 @@ namespace WeatherWiki.UserControls
             date = dateTime.ToString("ddd") + " " + dateTime.Day.ToString();
 
             return date;
+        }
+
+        private void PointerEnteredForecast(object sender, PointerRoutedEventArgs e)
+        {
+            StackPanel sp = sender as StackPanel;
+            sp.Background = ColorConverter("black");
+        }
+
+        private void PointerExitedForecast(object sender, PointerRoutedEventArgs e)
+        {
+            StackPanel sp = sender as StackPanel;
+            sp.Background = null;
+        }
+
+        private SolidColorBrush ColorConverter(string desiredColor)
+        {
+            var color = (Color)XamlBindingHelper.ConvertValue(typeof(Color), desiredColor);
+
+            return new SolidColorBrush
+            {
+                Color = color,
+                Opacity = 0.3
+            };
         }
     }
 }
