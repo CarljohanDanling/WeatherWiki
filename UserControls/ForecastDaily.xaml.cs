@@ -23,6 +23,7 @@ namespace WeatherWiki.UserControls
     public sealed partial class ForecastDaily : UserControl
     {
         private ObservableCollection<ForecastDailyData> forecastDaily;
+        public event TappedEventHandler individualDayTapped;
 
         public ForecastDaily()
         {
@@ -30,7 +31,7 @@ namespace WeatherWiki.UserControls
             forecastDaily = new ObservableCollection<ForecastDailyData>();
         }
 
-        public void AddForecastWeatherDataToUI(List<WeatherData> weatherData)
+        public void AddDailyForecastWeatherDataToUI(List<WeatherData> weatherData)
         {
             forecastDaily.Clear();
 
@@ -88,6 +89,10 @@ namespace WeatherWiki.UserControls
                 Color = color,
                 Opacity = 0.3
             };
+        }
+        private void IndividualDay_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            individualDayTapped(sender, e);
         }
     }
 }

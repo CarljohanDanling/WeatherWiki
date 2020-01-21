@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using WeatherWiki.Models;
@@ -23,15 +24,33 @@ namespace WeatherWiki.UserControls
             forecastHourly = new ObservableCollection<ForecastHourlyData>();
         }
 
-        public void AddHourlyForecastWeatherDataToUI(WeatherRoot weather)
+        public void AddHourlyForecastWeatherDataToUI(WeatherRoot weather, string typeOfData)
         {
             forecastHourly.Clear();
-            
+
+            if (typeOfData == "randomized")
+            {
+                weather.WeatherData = RandomizeHourlyForecast(weather.WeatherData);
+            }
+
             foreach (var item in FilterList(weather.WeatherData))
             {
                 forecastHourly.Add(ProcessObject(item));
                 forecastHourlyItemsControl.ItemsSource = forecastHourly;
             }
+        }
+
+        // API only gives 24 hours hourly forecast. I randomize the temperature data
+        // when clicking on individual days for the sake of visual experience.
+        public List<WeatherData> RandomizeHourlyForecast(List<WeatherData> listOfWeatherData)
+        {
+            var random = new Random();
+
+            return listOfWeatherData.Select(w => 
+            { 
+                w.CurrentTemperature = random.Next((int)w.CurrentTemperature - 3, (int)w.CurrentTemperature + 3); 
+                return w; 
+            }).ToList();
         }
 
         private ForecastHourlyData ProcessObject(WeatherData weatherData)

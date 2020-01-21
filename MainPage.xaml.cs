@@ -5,7 +5,9 @@ using WeatherWiki.DataProvider;
 using WeatherWiki.Models;
 using Windows.Foundation;
 using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace WeatherWiki
 {
@@ -23,17 +25,16 @@ namespace WeatherWiki
             suggestions = new ObservableCollection<string>();
         }
 
-        private async void getWeather(string userInput)
+        private async void GetWeatherDaily(string userInput)
         {
             var gdp = new GeneralDataProvider();
             var weatherDaily = await gdp.GetData<WeatherRoot>(userInput, "weather-daily");
-            var weatherHourly = await gdp.GetData<WeatherRoot>(userInput, "weather-hourly");
 
-            if (weatherDaily != null && weatherHourly != null)
+            if (weatherDaily != null)
             {
-                SendDataToUserControlForDisplay(weatherDaily, weatherHourly);
-                
-                HourByHourTextBlock.Visibility = 0;
+                CurrentWeatherComponent.AddCurrentWeatherDataToUI(weatherDaily);
+                DailyForecastWeatherComponent.AddDailyForecastWeatherDataToUI(weatherDaily.WeatherData);
+
                 errorMessage.Text = " ";
                 return;
             }
@@ -41,14 +42,21 @@ namespace WeatherWiki
             errorMessage.Text = "Invalid city name";
         }
 
-        private void SendDataToUserControlForDisplay(WeatherRoot weatherDaily, WeatherRoot weatherHourly)
+        private async void GetWeatherHourly(string userInput, string typeOfData)
         {
-            CurrentWeatherComponent.AddCurrentWeatherDataToUI(weatherDaily);
-            DailyForecastWeatherComponent.AddForecastWeatherDataToUI(weatherDaily.WeatherData);
-            HourlyForecastWeatherComponent.AddHourlyForecastWeatherDataToUI(weatherHourly);
+            var gdp = new GeneralDataProvider();
+            var weatherHourly = await gdp.GetData<WeatherRoot>(userInput, "weather-hourly");
+
+            if (weatherHourly != null)
+            {
+                HourlyForecastWeatherComponent.AddHourlyForecastWeatherDataToUI(weatherHourly, typeOfData);
+                HourByHourTextBlock.Visibility = 0;
+            }
+
+            return;
         }
 
-        private async Task<List<Suggestion>> getSuggestions(string userInput)
+        private async Task<List<Suggestion>> GetSuggestions(string userInput)
         {
             var gdp = new GeneralDataProvider();
             var suggestion = await gdp.GetData<SuggestionRoot>(userInput, "suggestion");
@@ -75,7 +83,7 @@ namespace WeatherWiki
 
         private async void PopulateAutoSuggestionBox(AutoSuggestBox sender)
         {
-            var listOfSuggestions = await getSuggestions(sender.Text);
+            var listOfSuggestions = await GetSuggestions(sender.Text);
 
             if (listOfSuggestions != null)
             {
@@ -97,19 +105,31 @@ namespace WeatherWiki
             // If user presses 'enter' instead of clicking on a suggestion.
             else if (args.ChosenSuggestion == null)
             {
-                getWeather(StringCleaner(args.QueryText));
+                GetWeatherDaily(StringCleaner(args.QueryText));
+                GetWeatherHourly(StringCleaner(args.QueryText), "normal");
             }
 
             // User chooses an suggestion.
             else
             {
-                getWeather(StringCleaner(args.ChosenSuggestion.ToString()));
+                GetWeatherDaily(StringCleaner(args.ChosenSuggestion.ToString()));
+                GetWeatherHourly(StringCleaner(args.ChosenSuggestion.ToString()), "normal");
             }
         }
 
         private string StringCleaner(string input)
         {
             return input.Contains(",") ? input.Substring(0, input.IndexOf(",")) : input;
+        }
+
+        private void OnTapDailyForecastChangeIndividualHourlyForecast(object sender, TappedRoutedEventArgs e)
+        {
+            GetWeatherHourly(StringCleaner(txtAutoSuggestBox.Text), "randomized");
+        }
+
+        private void WindowLoaded(object sender, RoutedEventArgs e)
+        {
+            DailyForecastWeatherComponent.individualDayTapped += new TappedEventHandler(OnTapDailyForecastChangeIndividualHourlyForecast);
         }
     }
 }

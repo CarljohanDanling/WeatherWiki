@@ -19,6 +19,7 @@
             <DataTemplate>
                 <StackPanel PointerEntered="PointerEnteredForecast"
                             PointerExited="PointerExitedForecast"
+                            Tapped="IndividualDay_Tapped"
                             VerticalAlignment="Center" 
                             Width="130"
                             Padding="10"
