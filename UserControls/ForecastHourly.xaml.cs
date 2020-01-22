@@ -63,7 +63,7 @@ namespace WeatherWiki.UserControls
             {
                 Hour = ProcessTime(weatherData.HourOfDay),
                 ImagePath = ProcessImagePath(weatherData.Weather.WeatherIcon),
-                Temperature = weatherData.CurrentTemperature
+                Temperature = (int)weatherData.CurrentTemperature
             };
         }
 
