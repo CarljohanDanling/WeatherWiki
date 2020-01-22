@@ -54,6 +54,7 @@ namespace WeatherWiki.UserControls
                     (int)w.CurrentTemperature + 3
                 );
                 return w;
+
             }).ToList();
         }
 
@@ -67,19 +68,13 @@ namespace WeatherWiki.UserControls
             };
         }
 
-        private string ProcessImagePath(string weatherIcon)
-        {
-            return $"/Images/WeatherState/{weatherIcon}.png";
-        }
+        private string ProcessImagePath(string weatherIcon) 
+            => $"/Images/WeatherState/{weatherIcon}.png";
 
         private string ProcessTime(string time)
-        {
-            return time.Substring(time.IndexOf("T") + 1, 5);
-        }
+            => time.Substring(time.IndexOf("T") + 1, 5);
 
         private IEnumerable<WeatherData> FilterList(List<WeatherData> weatherData)
-        {
-            return weatherData.Where((x, i) => i % 2 == 0).Skip(1);
-        }
+            => weatherData.Where((x, i) => i % 2 == 0).Skip(1);
     }
 }

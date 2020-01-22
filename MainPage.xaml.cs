@@ -117,19 +117,13 @@ namespace WeatherWiki
             }
         }
 
-        private string StringCleaner(string input)
-        {
-            return input.Contains(",") ? input.Substring(0, input.IndexOf(",")) : input;
-        }
+        private string StringCleaner(string input) 
+            => input.Contains(",") ? input.Substring(0, input.IndexOf(",")) : input;
 
-        private void OnTapDailyForecastChangeIndividualHourlyForecast(object sender, TappedRoutedEventArgs e)
-        {
-            GetWeatherHourly(StringCleaner(txtAutoSuggestBox.Text), "randomized");
-        }
+        private void OnTapDailyForecastChangeIndividualHourlyForecast(object sender, TappedRoutedEventArgs e) 
+            => GetWeatherHourly(StringCleaner(txtAutoSuggestBox.Text), "randomized");
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
-        {
-            DailyForecastWeatherComponent.individualDayTapped += new TappedEventHandler(OnTapDailyForecastChangeIndividualHourlyForecast);
-        }
+            => DailyForecastWeatherComponent.IndividualDayTapped += new TappedEventHandler(OnTapDailyForecastChangeIndividualHourlyForecast);
     }
 }

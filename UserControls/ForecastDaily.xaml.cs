@@ -23,7 +23,13 @@ namespace WeatherWiki.UserControls
     public sealed partial class ForecastDaily : UserControl
     {
         private ObservableCollection<ForecastDailyData> forecastDaily;
-        public event TappedEventHandler individualDayTapped;
+
+        private event TappedEventHandler _individualDayTapped;
+        public event TappedEventHandler IndividualDayTapped
+        {
+            add { _individualDayTapped += value; }
+            remove { }
+        }
 
         public ForecastDaily()
         {
@@ -56,9 +62,7 @@ namespace WeatherWiki.UserControls
         }
 
         private string ProcessImagePath(string weatherIcon)
-        {
-            return $"/Images/WeatherState/{weatherIcon}.png";
-        }
+            => $"/Images/WeatherState/{weatherIcon}.png";
 
         private string ProcessDate(string date)
         {
@@ -90,9 +94,8 @@ namespace WeatherWiki.UserControls
                 Opacity = 0.3
             };
         }
+
         private void IndividualDay_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            individualDayTapped(sender, e);
-        }
+            => _individualDayTapped(sender, e);
     }
 }

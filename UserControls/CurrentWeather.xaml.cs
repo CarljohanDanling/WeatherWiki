@@ -43,9 +43,7 @@ namespace WeatherWiki.UserControls
             };
         }
 
-        private string ProcessImagePath(string weatherIcon)
-        {
-            return $"/Images/WeatherState/{weatherIcon}.png";
-        }
+        private string ProcessImagePath(string weatherIcon) 
+            => $"/Images/WeatherState/{weatherIcon}.png";
     }
 }
