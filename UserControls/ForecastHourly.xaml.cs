@@ -46,10 +46,14 @@ namespace WeatherWiki.UserControls
         {
             var random = new Random();
 
-            return listOfWeatherData.Select(w => 
-            { 
-                w.CurrentTemperature = random.Next((int)w.CurrentTemperature - 3, (int)w.CurrentTemperature + 3); 
-                return w; 
+            return listOfWeatherData.Select(w =>
+            {
+                w.CurrentTemperature = random.Next
+                (
+                    (int)w.CurrentTemperature - 3,
+                    (int)w.CurrentTemperature + 3
+                );
+                return w;
             }).ToList();
         }
 
