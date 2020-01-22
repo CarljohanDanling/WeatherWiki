@@ -6,7 +6,7 @@ namespace WeatherWiki.DataProvider
 {
     public class GeneralDataProvider
     {
-        public async Task<T> GetData<T>(string userInput, string typeOfApi)
+        public async Task<T> GetData<T>(string userInput, string typeOfApi) where T:class
         {
             string URL = UrlBuilder(userInput, typeOfApi);
             T providedData = default;
