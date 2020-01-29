@@ -29,8 +29,7 @@
                    Foreground="Black"
                    Margin="0, 10, 10, 0"
                    FontSize="10"
-                   HorizontalAlignment="Right"
-                   >
+                   HorizontalAlignment="Right">
                 version 1.0.0-prerelease-a
         </TextBlock>
 
@@ -46,15 +45,22 @@
                         HorizontalAlignment="Center"
                         Margin="0, 25, 0, 0">
 
-                <AutoSuggestBox x:Name="txtAutoSuggestBox" 
+                <RelativePanel>
+                    <AutoSuggestBox x:Name="txtAutoSuggestBox" 
                                 TextChanged="AutoSuggestBox_TextChanged" 
                                 QuerySubmitted="AutoSuggestBox_QuerySubmitted"
                                 FontSize="20"
                                 PlaceholderText="Enter city"
                                 Width="250"
-                                QueryIcon="Find"
-                                >
-                </AutoSuggestBox>
+                                QueryIcon="Find"/>
+
+                    <ProgressRing Name="progressRing" 
+                                  RelativePanel.RightOf="txtAutoSuggestBox" 
+                                  IsActive="False"
+                                  Foreground="Black"
+                                  RelativePanel.AlignVerticalCenterWithPanel="True"
+                                  Margin="10, 0, 0, 3"/>
+                </RelativePanel>
 
                 <TextBlock x:Name="errorMessage" 
                            HorizontalAlignment="Right"
@@ -98,20 +104,20 @@
                                       HorizontalAlignment="Center"/>
                 </Grid>
 
-                
+
                 <!--FORECAST HOURLY-->
                 <Grid Grid.Row="3">
                     <StackPanel Orientation="Vertical">
-                    <TextBlock x:Name="HourByHourTextBlock" 
-                               Text="Temperature hour by hour"
-                               HorizontalAlignment="Center"
-                               Visibility="Collapsed"
-                               Margin="0, 0, 0, 15"
-                               Foreground="White"
-                               FontSize="23"/>
-                        
-                    <uc:ForecastHourly x:Name="HourlyForecastWeatherComponent"
-                                       HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="HourByHourTextBlock"
+                                   Text="Temperature hour by hour"
+                                   HorizontalAlignment="Center"
+                                   Visibility="Collapsed"
+                                   Margin="0, 0, 0, 15"
+                                   Foreground="White"
+                                   FontSize="23"/>
+
+                        <uc:ForecastHourly x:Name="HourlyForecastWeatherComponent"
+                                           HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
             </Grid>

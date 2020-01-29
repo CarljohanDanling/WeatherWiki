@@ -35,6 +35,7 @@ namespace WeatherWiki
                 CurrentWeatherComponent.AddCurrentWeatherDataToUI(weatherDaily);
                 DailyForecastWeatherComponent.AddDailyForecastWeatherDataToUI(weatherDaily.WeatherData);
 
+                progressRing.IsActive = false;
                 errorMessage.Text = " ";
                 return;
             }
@@ -64,23 +65,6 @@ namespace WeatherWiki
             return suggestion.Suggestions;
         }
 
-        private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-        {
-            bool isUserInputReason = args.Reason == 0; // 0 is for UserInput.
-            bool isUserInputMinimumLength = sender.Text.Length > 2;
-
-            if (isUserInputReason && isUserInputMinimumLength)
-            {
-                PopulateAutoSuggestionBox(sender);
-                return;
-            }
-
-            if (string.IsNullOrEmpty(sender.Text))
-            {
-                suggestions.Clear();
-            }
-        }
-
         private async void PopulateAutoSuggestionBox(AutoSuggestBox sender)
         {
             var listOfSuggestions = await GetSuggestions(sender.Text);
@@ -90,6 +74,25 @@ namespace WeatherWiki
                 suggestions.Clear();
                 listOfSuggestions.ForEach(x => suggestions.Add(x.SuggestedValue));
                 sender.ItemsSource = suggestions;
+            }
+        }
+
+        private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            bool isUserInputReason = args.Reason == 0; // 0 is for UserInput.
+            bool isUserInputMinimumLength = sender.Text.Length > 2;
+
+            if (isUserInputReason && isUserInputMinimumLength)
+            {
+                progressRing.IsActive = true;
+                PopulateAutoSuggestionBox(sender);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(sender.Text))
+            {
+                suggestions.Clear();
+                progressRing.IsActive = false;
             }
         }
 
@@ -117,10 +120,10 @@ namespace WeatherWiki
             }
         }
 
-        private string StringCleaner(string input) 
+        private string StringCleaner(string input)
             => input.Contains(",") ? input.Substring(0, input.IndexOf(",")) : input;
 
-        private void OnTapDailyForecastChangeIndividualHourlyForecast(object sender, TappedRoutedEventArgs e) 
+        private void OnTapDailyForecastChangeIndividualHourlyForecast(object sender, TappedRoutedEventArgs e)
             => GetWeatherHourly(StringCleaner(txtAutoSuggestBox.Text), "randomized");
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
