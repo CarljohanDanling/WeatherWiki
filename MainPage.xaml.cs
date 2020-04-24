@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using WeatherWiki.DataProvider;
-using WeatherWiki.Models;
-using Windows.Foundation;
-using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-
-namespace WeatherWiki
+﻿namespace WeatherWiki
 {
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Threading.Tasks;
+    using WeatherWiki.DataProvider;
+    using WeatherWiki.Models;
+    using Windows.Foundation;
+    using Windows.UI.ViewManagement;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Input;
+
     public sealed partial class MainPage : Page
     {
         // Collection with autosuggestions.
@@ -25,7 +25,7 @@ namespace WeatherWiki
             suggestions = new ObservableCollection<string>();
         }
 
-        private async void GetWeatherDaily(string userInput)
+        private async Task GetWeatherDaily(string userInput)
         {
             var gdp = new GeneralDataProvider();
             var weatherDaily = await gdp.GetData<WeatherRoot>(userInput, "weather-daily");
@@ -43,7 +43,7 @@ namespace WeatherWiki
             errorMessage.Text = "Invalid city name";
         }
 
-        private async void GetWeatherHourly(string userInput, string typeOfData)
+        private async Task GetWeatherHourly(string userInput, string typeOfData)
         {
             var gdp = new GeneralDataProvider();
             var weatherHourly = await gdp.GetData<WeatherRoot>(userInput, "weather-hourly");
@@ -96,7 +96,7 @@ namespace WeatherWiki
             }
         }
 
-        private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        private async void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             // Error handeling.
             if (string.IsNullOrEmpty(args.QueryText))
@@ -108,23 +108,23 @@ namespace WeatherWiki
             // If user presses 'enter' instead of clicking on a suggestion.
             else if (args.ChosenSuggestion == null)
             {
-                GetWeatherDaily(StringCleaner(args.QueryText));
-                GetWeatherHourly(StringCleaner(args.QueryText), "normal");
+                await GetWeatherDaily(StringCleaner(args.QueryText));
+                await GetWeatherHourly(StringCleaner(args.QueryText), "normal");
             }
 
             // User chooses an suggestion.
             else
             {
-                GetWeatherDaily(StringCleaner(args.ChosenSuggestion.ToString()));
-                GetWeatherHourly(StringCleaner(args.ChosenSuggestion.ToString()), "normal");
+                await GetWeatherDaily(StringCleaner(args.ChosenSuggestion.ToString()));
+                await GetWeatherHourly(StringCleaner(args.ChosenSuggestion.ToString()), "normal");
             }
         }
 
         private string StringCleaner(string input)
             => input.Contains(",") ? input.Substring(0, input.IndexOf(",")) : input;
 
-        private void OnTapDailyForecastChangeIndividualHourlyForecast(object sender, TappedRoutedEventArgs e)
-            => GetWeatherHourly(StringCleaner(txtAutoSuggestBox.Text), "randomized");
+        private async void OnTapDailyForecastChangeIndividualHourlyForecast(object sender, TappedRoutedEventArgs e)
+            => await GetWeatherHourly(StringCleaner(txtAutoSuggestBox.Text), "randomized");
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
             => DailyForecastWeatherComponent.IndividualDayTapped += new TappedEventHandler(OnTapDailyForecastChangeIndividualHourlyForecast);
