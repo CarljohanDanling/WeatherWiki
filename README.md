@@ -1,4 +1,6 @@
 # WeatherWiki
 An UWP weather app including autosuggestions.
 
-![Preview of the UI](https://raw.github.com/carljohandanling/weatherwiki/master/preview-weather-wiki.png)
+## This is how the UI looks like:
+
+![Preview of the UI](https://raw.github.com/carljohandanling/weatherwiki/master/preview-ui.png)
